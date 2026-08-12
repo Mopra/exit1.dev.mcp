@@ -24,6 +24,23 @@ jobs:
       - name: MCP protocol smoke test
         run: node scripts/smoke-test.mjs
 
+      # npm 11 silently DELETES manifest fields it considers malformed rather
+      # than failing. A "./" prefix on a bin path was enough to drop the bin
+      # entry entirely, which would publish a package where `npx exit1-mcp`
+      # does nothing. Treat any auto-correction as a build failure.
+      - name: Publish manifest must need no auto-correction
+        run: |
+          if npm publish --dry-run 2>&1 | tee /dev/stderr | grep -q "auto-corrected"; then
+            echo "::error::npm rewrote package.json at publish time. Run 'npm pkg fix' and commit the result."
+            exit 1
+          fi
+
+      - name: Published tarball must expose the exit1-mcp bin
+        run: |
+          npm pack --silent
+          tar -xzOf exit1-mcp-*.tgz package/package.json \
+            | node -e "let d='';process.stdin.on('data',c=>d+=c).on('end',()=>{const b=JSON.parse(d).bin;if(!b||!b['exit1-mcp']){console.error('bin missing from the packed manifest');process.exit(1)}console.log('bin ok:',JSON.stringify(b))})"
+
   catalog-sync:
     runs-on: ubuntu-latest
     steps:
