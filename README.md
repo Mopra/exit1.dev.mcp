@@ -222,6 +222,19 @@ mcp-publisher publish
 npm ownership is proven by the `mcpName` field in `package.json`, which must stay equal to `name`
 in `server.json`.
 
+## Quick Links
+
+| | | |
+|---|---|---|
+| **Website** | [exit1.dev](https://exit1.dev) — Learn about the platform | [Repo](https://github.com/Mopra/exit1.dev.website) |
+| **Monitor App** | [app.exit1.dev](https://app.exit1.dev) — Sign in and manage your checks | [Repo](https://github.com/Mopra/exit1.dev) |
+| **Documentation** | [docs.exit1.dev](https://docs.exit1.dev) — Guides, API reference, and setup instructions | [Repo](https://github.com/Mopra/exit1.dev.docs) |
+| **MCP Server** | [`exit1-mcp`](https://www.npmjs.com/package/exit1-mcp) — this repo | [Repo](https://github.com/Mopra/exit1.dev.mcp) |
+
+Also listed on the [official MCP registry](https://registry.modelcontextprotocol.io) as `dev.exit1/exit1-mcp`.
+
 ## License
 
 MIT — see [LICENSE](LICENSE).
+
+The rest of exit1 is source-available rather than open source; this package is the exception, so it can be vendored and inspected freely by MCP clients.
