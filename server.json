@@ -1,0 +1,43 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "dev.exit1/exit1-mcp",
+  "title": "Exit1 Uptime Monitoring",
+  "description": "Set up uptime monitoring from your editor: read the repo, create HTTP/API/DNS/heartbeat checks, configure email and Slack alerts, and query uptime history in plain language.",
+  "websiteUrl": "https://exit1.dev",
+  "version": "0.2.0",
+  "repository": {
+    "url": "https://github.com/Mopra/exit1.dev.mcp",
+    "source": "github"
+  },
+  "packages": [
+    {
+      "registryType": "npm",
+      "registryBaseUrl": "https://registry.npmjs.org",
+      "identifier": "exit1-mcp",
+      "version": "0.2.0",
+      "transport": {
+        "type": "stdio"
+      },
+      "environmentVariables": [
+        {
+          "name": "EXIT1_API_KEY",
+          "description": "Exit1 Public API key (ek_live_…), created at https://app.exit1.dev/api-keys. Requires an Indie plan or higher.",
+          "isRequired": true,
+          "isSecret": true
+        },
+        {
+          "name": "EXIT1_API_URL",
+          "description": "Override the Exit1 API base URL. Development only.",
+          "isRequired": false,
+          "isSecret": false
+        }
+      ]
+    }
+  ],
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://app.exit1.dev/mcp/v1"
+    }
+  ]
+}

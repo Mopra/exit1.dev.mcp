@@ -1,0 +1,3 @@
+# Keep LF in the repo and in the published package regardless of platform.
+* text=auto eol=lf
+*.png binary
