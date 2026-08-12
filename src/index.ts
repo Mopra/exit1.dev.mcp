@@ -15,7 +15,8 @@ const apiKey = process.env.EXIT1_API_KEY;
 if (!apiKey) {
   console.error(
     "Error: EXIT1_API_KEY environment variable is required.\n" +
-      "Create an API key at https://app.exit1.dev/api-keys (Indie plan or higher).\n\n" +
+      "Create an API key at https://app.exit1.dev/api-keys — every plan can mint\n" +
+      "one, Free included.\n\n" +
       "Prefer not to manage a key? Use the hosted server instead — it signs you in\n" +
       "through your browser and needs no key:\n" +
       "  claude mcp add --transport http exit1 https://app.exit1.dev/mcp/v1"

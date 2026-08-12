@@ -90,8 +90,8 @@ Goose, ChatGPT) are in [README.md](README.md).
 | | Hosted | Local stdio |
 |---|---|---|
 | Exit1 account | Required (sign-up inline) | Required |
-| Plan | Any, including Free | Indie or higher (API keys are a paid feature) |
-| Plan limits | Apply either way — Free allows 5 checks at 5-minute intervals and no DNS or domain checks. `get_account` reports the caller's effective limits so the assistant plans within them. | |
+| Plan | Any, including Free | Any, including Free |
+| Plan limits | Apply either way — Free allows 50 checks at 5-minute intervals, with DNS and domain checks reserved for paid plans. `get_account` reports the caller's effective limits so the assistant plans within them. | |
 | API key | Not needed | `EXIT1_API_KEY` from https://app.exit1.dev/api-keys |
 | Node.js | Not needed | 18+ |
 | Client support | Remote MCP + OAuth | Any MCP client |

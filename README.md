@@ -40,7 +40,7 @@ Once connected, the server also ships a `setup_monitoring` prompt containing the
 ## Requirements
 
 - **Hosted:** an Exit1 account. Sign-up happens inline during the OAuth flow.
-- **Local stdio:** Node.js 18+, and an API key from your [dashboard](https://app.exit1.dev/api-keys). API keys require an Indie plan or higher — MCP access follows API access.
+- **Local stdio:** Node.js 18+, and an API key from your [dashboard](https://app.exit1.dev/api-keys). Every plan can mint a key, Free included.
 
 ## Supported clients
 

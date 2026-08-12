@@ -28,7 +28,7 @@
       "environmentVariables": [
         {
           "name": "EXIT1_API_KEY",
-          "description": "Exit1 Public API key (ek_live_…), created at https://app.exit1.dev/api-keys. Requires an Indie plan or higher.",
+          "description": "Exit1 Public API key (ek_live_…), created at https://app.exit1.dev/api-keys. Available on every plan, including Free.",
           "isRequired": true,
           "isSecret": true
         },
