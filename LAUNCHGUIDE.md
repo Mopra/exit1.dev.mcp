@@ -43,8 +43,10 @@ create checks, set alerts, and query uptime history for websites, APIs, domains 
   look for deployed URLs and health endpoints, to assert on response bodies rather than status
   codes, and to always finish by testing the alert channel.
 - **Scoped, revocable access.** Per-scope permissions (`checks:read`, `checks:write`,
-  `alerts:read`, `alerts:write`, `checks:delete`). `checks:delete` is never granted by default.
-  Hosted connections are listed and revocable at https://app.exit1.dev/mcp.
+  `alerts:read`, `alerts:write`, `checks:delete`). The hosted server requests the first four and
+  never `checks:delete` unless a client asks for it explicitly; on the stdio path the scopes are
+  whichever ones you tick when creating the API key. Hosted connections are listed and revocable
+  at https://app.exit1.dev/mcp — revoking kills every token issued to that client immediately.
 
 ## Use cases
 
@@ -89,6 +91,7 @@ Goose, ChatGPT) are in [README.md](README.md).
 |---|---|---|
 | Exit1 account | Required (sign-up inline) | Required |
 | Plan | Any, including Free | Indie or higher (API keys are a paid feature) |
+| Plan limits | Apply either way — Free allows 5 checks at 5-minute intervals and no DNS or domain checks. `get_account` reports the caller's effective limits so the assistant plans within them. | |
 | API key | Not needed | `EXIT1_API_KEY` from https://app.exit1.dev/api-keys |
 | Node.js | Not needed | 18+ |
 | Client support | Remote MCP + OAuth | Any MCP client |

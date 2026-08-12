@@ -2,9 +2,16 @@
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "dev.exit1/exit1-mcp",
   "title": "Exit1 Uptime Monitoring",
-  "description": "Set up uptime monitoring from your editor: read the repo, create HTTP/API/DNS/heartbeat checks, configure email and Slack alerts, and query uptime history in plain language.",
+  "description": "Set up uptime monitoring from your editor: create checks, configure alerts, query uptime history.",
   "websiteUrl": "https://exit1.dev",
   "version": "0.2.0",
+  "icons": [
+    {
+      "src": "https://raw.githubusercontent.com/Mopra/exit1.dev.mcp/main/assets/logo-400.png",
+      "mimeType": "image/png",
+      "sizes": ["400x400"]
+    }
+  ],
   "repository": {
     "url": "https://github.com/Mopra/exit1.dev.mcp",
     "source": "github"

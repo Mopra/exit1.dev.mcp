@@ -115,6 +115,22 @@ const remote = parseCatalog(await loadRemote(), "MCP_TOOLS");
 if (local.length === 0) errors.push("Parsed 0 tools from src/tools.ts — the parser is out of date, not the catalog.");
 if (remote.length === 0) errors.push("Parsed 0 tools from the hosted catalog — the parser is out of date, not the catalog.");
 
+// A brace-counting parser that silently truncates would report two mangled
+// schemas as "equal". Assert each extraction is a whole object literal so a
+// parser failure surfaces as a failure rather than a false pass.
+for (const [side, tools] of [["local", local], ["hosted", remote]]) {
+  for (const tool of tools) {
+    if (!tool.inputSchema) {
+      errors.push(`Parser found no inputSchema for ${side} "${tool.name}".`);
+    } else if (!tool.inputSchema.startsWith('{ type: "object"') || !tool.inputSchema.endsWith("}")) {
+      errors.push(`Parser produced a truncated inputSchema for ${side} "${tool.name}": ${tool.inputSchema.slice(0, 80)}…`);
+    }
+    if (!tool.title || !tool.description) {
+      errors.push(`Parser found no ${!tool.title ? "title" : "description"} for ${side} "${tool.name}".`);
+    }
+  }
+}
+
 const localByName = new Map(local.map((t) => [t.name, t]));
 const remoteByName = new Map(remote.map((t) => [t.name, t]));
 
