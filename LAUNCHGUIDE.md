@@ -68,11 +68,11 @@ create checks, set alerts, and query uptime history for websites, APIs, domains 
 
 ### Hosted (recommended: no API key, no install)
 
-Run in the terminal, before starting a session:
+Run in the terminal, before starting a session (one line on purpose: cmd.exe drops the
+second line of a two-line paste):
 
 ```bash
-claude mcp add --transport http exit1 https://app.exit1.dev/mcp/v1
-claude mcp login exit1
+claude mcp add --transport http exit1 https://app.exit1.dev/mcp/v1 && claude mcp login exit1
 ```
 
 OAuth 2.1 with PKCE; `claude mcp login` opens the browser sign-in with no session running.

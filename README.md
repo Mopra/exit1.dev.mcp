@@ -4,14 +4,13 @@ MCP server for [Exit1](https://exit1.dev) uptime monitoring. Let your AI assista
 
 ## Two ways to connect
 
-**Hosted (recommended).** No API key, no npm install, no plan requirement to get started. Run these in your terminal before starting a session: the second command opens your browser, you sign in (or sign up) with Clerk, approve, and you're connected.
+**Hosted (recommended).** No API key, no npm install, no plan requirement to get started. Run this in your terminal before starting a session: the login opens your browser, you sign in (or sign up) with Clerk, approve, and you're connected.
 
 ```bash
-claude mcp add --transport http exit1 https://app.exit1.dev/mcp/v1
-claude mcp login exit1
+claude mcp add --transport http exit1 https://app.exit1.dev/mcp/v1 && claude mcp login exit1
 ```
 
-Connect before you start the session: MCP clients load servers at startup, so a server added mid-conversation isn't usable until a restart. On Claude Code versions without `claude mcp login`, start `claude` and authenticate via `/mcp` instead.
+One line on purpose: pasting the two commands as separate lines is unreliable in some terminals (cmd.exe drops the second line). In old Windows PowerShell (5.1), where `&&` doesn't parse, run the two halves one at a time. Connect before you start the session: MCP clients load servers at startup, so a server added mid-conversation isn't usable until a restart. On Claude Code versions without `claude mcp login`, start `claude` and authenticate via `/mcp` instead.
 
 **Local stdio.** This npm package. Uses a Public API key from your dashboard. Use it when your client doesn't support remote MCP servers with OAuth.
 
