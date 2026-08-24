@@ -66,14 +66,19 @@ create checks, set alerts, and query uptime history for websites, APIs, domains 
 
 ## Installation
 
-### Hosted (recommended — no API key, no install)
+### Hosted (recommended: no API key, no install)
+
+Run in the terminal, before starting a session:
 
 ```bash
 claude mcp add --transport http exit1 https://app.exit1.dev/mcp/v1
+claude mcp login exit1
 ```
 
-OAuth 2.1 with PKCE. Sign-up happens inline during the flow, so a new user can go from zero to
-connected without visiting the dashboard first.
+OAuth 2.1 with PKCE; `claude mcp login` opens the browser sign-in with no session running.
+Sign-up happens inline during the flow, so a new user can go from zero to connected without
+visiting the dashboard first. Connect before starting the session: MCP clients load servers at
+startup, so a server added mid-conversation isn't usable until a restart.
 
 ### Local stdio
 

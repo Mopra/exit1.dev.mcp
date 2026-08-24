@@ -4,11 +4,14 @@ MCP server for [Exit1](https://exit1.dev) uptime monitoring. Let your AI assista
 
 ## Two ways to connect
 
-**Hosted (recommended).** No API key, no npm install, no plan requirement to get started. Your assistant opens a browser, you sign in (or sign up) with Clerk, approve, and you're connected.
+**Hosted (recommended).** No API key, no npm install, no plan requirement to get started. Run these in your terminal before starting a session: the second command opens your browser, you sign in (or sign up) with Clerk, approve, and you're connected.
 
 ```bash
 claude mcp add --transport http exit1 https://app.exit1.dev/mcp/v1
+claude mcp login exit1
 ```
+
+Connect before you start the session: MCP clients load servers at startup, so a server added mid-conversation isn't usable until a restart. On Claude Code versions without `claude mcp login`, start `claude` and authenticate via `/mcp` instead.
 
 **Local stdio.** This npm package. Uses a Public API key from your dashboard. Use it when your client doesn't support remote MCP servers with OAuth.
 
@@ -21,18 +24,20 @@ Both expose the same tools. The hosted server is easier; the stdio one has no br
 
 ## Zero to monitored
 
-Paste this into Claude Code, Cursor, Codex or any MCP-capable assistant, from inside your project:
+Connect the server (above), then paste this into Claude Code, Cursor, Codex or any MCP-capable assistant, from inside your project:
 
 ```
 Set up uptime monitoring for this project with Exit1.
 
-1. Add the MCP server: claude mcp add --transport http exit1 https://app.exit1.dev/mcp/v1
-2. Call get_account to see my plan limits.
-3. Read this repo to find what should be monitored — deployed URLs in vercel.json /
+1. Call get_account to see my plan limits. If the Exit1 tools aren't available
+   to you, don't try to connect from inside this session; tell me to add the
+   HTTP MCP server https://app.exit1.dev/mcp/v1 in my tool, restart it, and
+   paste this prompt again.
+2. Read this repo to find what should be monitored: deployed URLs in vercel.json /
    next.config / wrangler.toml / .env.production / README, and any /health or
    /api/status route handlers.
-4. Show me the checks you plan to create before creating them.
-5. Configure email alerts, then send a test alert so I can confirm delivery works.
+3. Show me the checks you plan to create before creating them.
+4. Configure email alerts, then send a test alert so I can confirm delivery works.
 ```
 
 Once connected, the server also ships a `setup_monitoring` prompt containing the full playbook — in Claude Code, `/exit1:setup_monitoring`.
