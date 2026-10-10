@@ -42,6 +42,9 @@ interface RawCheck {
   lastChecked?: number;
   createdAt?: number;
   sslCertificate?: { valid?: boolean; issuer?: string; daysUntilExpiry?: number; error?: string } | null;
+  uptime24h?: number | null;
+  uptime30d?: number | null;
+  avgResponseTime24h?: number | null;
 }
 
 function formatCheck(check: RawCheck) {
@@ -65,6 +68,9 @@ function formatCheck(check: RawCheck) {
         }
       : null,
     createdAt: iso(check.createdAt),
+    ...(check.uptime24h !== undefined
+      ? { uptime24hPercent: check.uptime24h, uptime30dPercent: check.uptime30d ?? null, avgResponseTime24hMs: check.avgResponseTime24h ?? null }
+      : {}),
   };
 }
 
@@ -100,13 +106,14 @@ export const TOOLS: McpToolDefinition[] = [
     readOnly: true,
     scope: "checks:read",
     description:
-      "List monitored checks with their current status and folder. Use for an overview, to find offline checks, or to see what is already monitored before creating duplicates. Pass folder to list one folder; add recursive to include its subfolders.",
+      "List monitored checks with their current status and folder. Use for an overview, to find offline checks, or to see what is already monitored before creating duplicates. Pass folder to list one folder; add recursive to include its subfolders. Pass include=\"uptime\" to add 24h and 30d uptime percentages and the 24h average response time to each check.",
     inputSchema: {
       type: "object",
       properties: {
         status: { type: "string", enum: ["online", "offline", "unknown"], description: "Filter by current status" },
         folder: { type: "string", description: "Only checks in this folder, as a path like \"Clients/Acme\" (exact match unless recursive is true)" },
         recursive: { type: "boolean", description: "With folder, also include checks in its subfolders (default false)" },
+        include: { type: "string", enum: ["uptime"], description: "Set to \"uptime\" to add uptime24hPercent, uptime30dPercent and avgResponseTime24hMs to each check (null when unavailable)" },
         limit: { type: "integer", minimum: 1, maximum: 100, description: "Results per page (default 25)" },
         page: { type: "integer", minimum: 1, description: "Page number" },
       },
@@ -114,7 +121,7 @@ export const TOOLS: McpToolDefinition[] = [
     },
     handler: async (args, api) => {
       const body = (await api.call("GET", "/checks", {
-        query: { status: args.status, folder: args.folder, recursive: args.recursive, limit: args.limit, page: args.page },
+        query: { status: args.status, folder: args.folder, recursive: args.recursive, include: args.include, limit: args.limit, page: args.page },
       })) as { data: RawCheck[]; meta: unknown };
       const checks = (body.data || []).map(formatCheck);
       const summary = checks.reduce<Record<string, number>>((acc, c) => {
