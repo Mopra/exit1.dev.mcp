@@ -30,7 +30,7 @@ const client = new Exit1ApiClient({
 });
 
 const server = new Server(
-  { name: "exit1", version: "0.2.0" },
+  { name: "exit1", version: "0.3.0" },
   {
     capabilities: { tools: {}, prompts: {} },
     instructions: `Exit1 is uptime monitoring for websites, APIs, domains and cron jobs.

@@ -4,7 +4,7 @@
   "title": "Exit1 Uptime Monitoring",
   "description": "Set up uptime monitoring from your editor: create checks, configure alerts, query uptime history.",
   "websiteUrl": "https://exit1.dev",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "icons": [
     {
       "src": "https://raw.githubusercontent.com/Mopra/exit1.dev.mcp/main/assets/logo-400.png",
@@ -21,7 +21,7 @@
       "registryType": "npm",
       "registryBaseUrl": "https://registry.npmjs.org",
       "identifier": "exit1-mcp",
-      "version": "0.2.0",
+      "version": "0.3.0",
       "transport": {
         "type": "stdio"
       },
