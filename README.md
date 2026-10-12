@@ -47,10 +47,11 @@ Connect the server (above), then paste this into Claude Code, Cursor, Codex or a
 ```
 Set up uptime monitoring for this project with Exit1.
 
-1. Call get_account to see my plan limits. If the Exit1 tools aren't available
-   to you, don't try to connect from inside this session; tell me to add the
-   HTTP MCP server https://app.exit1.dev/mcp/v1 in my tool, restart it, and
-   paste this prompt again.
+1. Call get_account to see my plan limits. If you have a create_account tool
+   instead, I have no account yet: ask for my email and call it. If the Exit1
+   tools aren't available to you at all, don't try to connect from inside this
+   session; tell me to add the HTTP MCP server https://app.exit1.dev/mcp/v1 in
+   my tool, restart it, and paste this prompt again.
 2. Read this repo to find what should be monitored: deployed URLs in vercel.json /
    next.config / wrangler.toml / .env.production / README, and any /health or
    /api/status route handlers.
