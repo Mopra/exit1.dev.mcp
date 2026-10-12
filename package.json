@@ -1,6 +1,6 @@
 {
   "name": "exit1-mcp",
-  "version": "0.3.1",
+  "version": "0.4.0",
   "description": "MCP server for Exit1 uptime monitoring — set up monitors, configure alerts, and query uptime from AI assistants",
   "mcpName": "dev.exit1/exit1-mcp",
   "keywords": [
@@ -36,9 +36,9 @@
     "build": "tsc",
     "dev": "tsc --watch",
     "typecheck": "tsc --noEmit",
-    "test": "npm run build && node scripts/smoke-test.mjs",
+    "test": "npm run build && node scripts/smoke-test.mjs && node scripts/smoke-test-setup-mode.mjs",
     "check:catalog": "node scripts/check-catalog-sync.mjs",
-    "prepublishOnly": "npm run build && node scripts/smoke-test.mjs"
+    "prepublishOnly": "npm test"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.30.0"

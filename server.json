@@ -2,14 +2,16 @@
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "dev.exit1/exit1-mcp",
   "title": "Exit1 Uptime Monitoring",
-  "description": "Set up uptime monitoring from your editor: create checks, configure alerts, query uptime history.",
+  "description": "Set up uptime monitoring from your editor: create checks, configure alerts, query uptime. No account? The agent can create one.",
   "websiteUrl": "https://exit1.dev",
-  "version": "0.3.1",
+  "version": "0.4.0",
   "icons": [
     {
       "src": "https://raw.githubusercontent.com/Mopra/exit1.dev.mcp/main/assets/logo-400.png",
       "mimeType": "image/png",
-      "sizes": ["400x400"]
+      "sizes": [
+        "400x400"
+      ]
     }
   ],
   "repository": {
@@ -21,15 +23,15 @@
       "registryType": "npm",
       "registryBaseUrl": "https://registry.npmjs.org",
       "identifier": "exit1-mcp",
-      "version": "0.3.1",
+      "version": "0.4.0",
       "transport": {
         "type": "stdio"
       },
       "environmentVariables": [
         {
           "name": "EXIT1_API_KEY",
-          "description": "Exit1 Public API key (ek_live_…), created at https://app.exit1.dev/api-keys. Available on every plan, including Free.",
-          "isRequired": true,
+          "description": "Exit1 Public API key (ek_live_…), created at https://app.exit1.dev/api-keys. Optional: without it the server offers a create_account tool that signs the user up and connects automatically.",
+          "isRequired": false,
           "isSecret": true
         },
         {

@@ -21,6 +21,25 @@ export EXIT1_API_KEY="ek_live_your_key_here"
 
 Both expose the same tools. The hosted server is easier; the stdio one has no browser step, which some CI-ish setups prefer.
 
+## No account yet? Let the agent create one
+
+Started without `EXIT1_API_KEY`, the stdio server doesn't exit. It starts in setup mode and offers one extra tool, `create_account`. Your agent calls it with your email address, and exit1 creates a free account and connects the server to it on the spot. Every other tool works straight away, and monitors start running.
+
+```bash
+claude mcp add exit1 -- npx -y exit1-mcp
+# then, in the session: "Set up uptime monitoring for this project with exit1. My email is you@example.com."
+```
+
+Or from a terminal, before the session:
+
+```bash
+npx exit1-mcp signup --email you@example.com
+```
+
+Either way exit1 emails you a link to claim the account. **Alerts are only delivered once you claim it**, so nobody can point exit1's alerts at an address they don't own. On the claim page you decide whether the agent keeps access. Unclaimed accounts are paused after 7 days and deleted after 30.
+
+The tokens are saved to `~/.exit1/credentials.json` and refreshed automatically, so later sessions connect without any setup. `EXIT1_API_KEY`, when set, always wins. Agents that don't use MCP can do the same with one HTTP call: see [Agent signup](https://docs.exit1.dev/integrations/agent-signup).
+
 ## Zero to monitored
 
 Connect the server (above), then paste this into Claude Code, Cursor, Codex or any MCP-capable assistant, from inside your project:
@@ -44,7 +63,7 @@ Once connected, the server also ships a `setup_monitoring` prompt containing the
 ## Requirements
 
 - **Hosted:** an Exit1 account. Sign-up happens inline during the OAuth flow.
-- **Local stdio:** Node.js 18+, and an API key from your [dashboard](https://app.exit1.dev/api-keys). Every plan can mint a key, Free included.
+- **Local stdio:** Node.js 18+, and either an API key from your [dashboard](https://app.exit1.dev/api-keys) (every plan can mint one, Free included) or no account at all: see [No account yet?](#no-account-yet-let-the-agent-create-one).
 
 ## Supported clients
 
@@ -163,7 +182,8 @@ The hosted server requests `checks:read`, `checks:write`, `alerts:read` and `ale
 
 | Environment variable | Required | Description |
 |---------------------|----------|-------------|
-| `EXIT1_API_KEY` | stdio only | Your Exit1 API key (`ek_live_…`) |
+| `EXIT1_API_KEY` | No | Your Exit1 API key (`ek_live_…`). Without it the server uses saved signup credentials, or starts in setup mode |
+| `EXIT1_CREDENTIALS_PATH` | No | Where signup credentials are saved (default `~/.exit1/credentials.json`) |
 | `EXIT1_API_URL` | No | Override the API base URL (for development) |
 
 ## Managing connections
@@ -179,10 +199,11 @@ npm test               # build, then drive a real MCP handshake over stdio
 npm run check:catalog  # compare the tool catalog against the hosted server
 ```
 
-`npm test` spawns the built server and asserts the surface a client actually sees — the tool
+`npm test` spawns the built server and asserts the surface a client actually sees: the tool
 count, `readOnlyHint` / `destructiveHint` annotations, the `setup_monitoring` prompt, and that an
-unknown tool returns `isError` rather than a protocol error. It needs no API key and makes no
-network calls.
+unknown tool returns `isError` rather than a protocol error. A second run starts it with no key
+and no saved credentials and checks setup mode (`create_account` listed, other tools explain how
+to get an account). It needs no API key and makes no network calls.
 
 ### Why `check:catalog` exists
 
